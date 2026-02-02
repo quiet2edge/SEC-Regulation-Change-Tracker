@@ -1,0 +1,11 @@
+{
+  "name": "sec-reg-change-agent",
+  "title": "SEC Regulation Change Monitor (EDGAR Filings)",
+  "description": "Scrapes EDGAR for new SEC filings & amendments, supports ticker/CIK targeting, date ranges, backfills, JSON/CSV output, and optional AI change summaries.",
+  "version": "1.0",
+  "meta": {
+    "templateId": "js-crawlee-cheerio"
+  },
+  "input": "INPUT_SCHEMA.json",
+  "main": "src/main.js"
+}

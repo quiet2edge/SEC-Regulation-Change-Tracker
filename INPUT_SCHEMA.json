@@ -1,0 +1,200 @@
+{
+  "title": "SEC Regulation Change Monitor Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "targets": {
+      "title": "Targets",
+      "type": "object",
+      "description": "Specify companies to monitor. Provide tickers and/or CIKs.",
+      "default": {
+        "tickers": [],
+        "ciks": []
+      },
+      "properties": {
+        "tickers": {
+          "title": "Tickers",
+          "type": "array",
+          "description": "List of company tickers to monitor (e.g., AAPL).",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "ciks": {
+          "title": "CIKs",
+          "type": "array",
+          "description": "List of company CIKs (string or number). Can be with or without leading zeros.",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        }
+      }
+    },
+    "forms": {
+      "title": "Forms",
+      "type": "array",
+      "description": "SEC forms to track. Use exact EDGAR form strings (e.g., 10-K, 10-K/A).",
+      "items": {
+        "type": "string"
+      },
+      "default": [
+        "S-1",
+        "S-3",
+        "S-4",
+        "10-Q",
+        "10-K",
+        "8-K",
+        "DEF 14A",
+        "SC 13D",
+        "SC 13G",
+        "ADV",
+        "D"
+      ]
+    },
+    "dateRange": {
+      "title": "Date range filter",
+      "type": "object",
+      "description": "Optional filter for filingDate (YYYY-MM-DD). Leave blank to use last-run state only.",
+      "default": {
+        "startDate": "",
+        "endDate": ""
+      },
+      "properties": {
+        "startDate": {
+          "title": "Start date",
+          "type": "string",
+          "description": "Inclusive start date (YYYY-MM-DD). Leave empty for no start bound.",
+          "default": ""
+        },
+        "endDate": {
+          "title": "End date",
+          "type": "string",
+          "description": "Inclusive end date (YYYY-MM-DD). Leave empty for no end bound.",
+          "default": ""
+        }
+      }
+    },
+    "backfill": {
+      "title": "Backfill historical data on first run",
+      "type": "boolean",
+      "description": "If true and there is no stored state yet, pull filings within the date range (or the last N days) to seed the dataset. If false, only track from deployment/run date forward.",
+      "default": false
+    },
+    "backfillDays": {
+      "title": "Backfill lookback days (when no dateRange is provided)",
+      "type": "integer",
+      "description": "If backfill=true and dateRange is empty, pull filings from the last N days on first run.",
+      "default": 30,
+      "minimum": 1,
+      "maximum": 3650
+    },
+    "outputFormats": {
+      "title": "Output formats",
+      "type": "array",
+      "description": "Choose one or both output formats. JSON is always written to the dataset; CSV is exported to OUTPUT.csv in key-value store.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "json",
+          "csv"
+        ]
+      },
+      "default": [
+        "json",
+        "csv"
+      ]
+    },
+    "checkFrequency": {
+      "title": "Intended check frequency",
+      "type": "string",
+      "description": "For your product UX only; scheduling is configured outside the actor (Apify Scheduler / webhook).",
+      "enum": [
+        "realtime",
+        "hourly",
+        "daily",
+        "weekly"
+      ],
+      "default": "daily"
+    },
+    "userAgent": {
+      "title": "SEC User-Agent header",
+      "type": "string",
+      "description": "Required. SEC asks automated clients to identify themselves. Example: 'YourName your.email@domain.com'.",
+      "minLength": 8
+    },
+    "maxCompanies": {
+      "title": "Max companies per run",
+      "type": "integer",
+      "description": "Safety limit to avoid huge runs.",
+      "default": 200,
+      "minimum": 1,
+      "maximum": 2000
+    },
+    "maxFilingsPerCompany": {
+      "title": "Max filings to scan per company",
+      "type": "integer",
+      "description": "Limit how many recent filings to evaluate per company.",
+      "default": 200,
+      "minimum": 10,
+      "maximum": 2000
+    },
+    "requestConcurrency": {
+      "title": "HTTP concurrency",
+      "type": "integer",
+      "description": "Parallelism for SEC requests (keep modest to be nice to EDGAR).",
+      "default": 4,
+      "minimum": 1,
+      "maximum": 10
+    },
+    "enrich": {
+      "title": "Enrichment options",
+      "type": "object",
+      "description": "Controls enrichment and parsing of filing documents.",
+      "default": {
+        "parseSections": true,
+        "aiSummarize": true,
+        "aiModel": "gpt-4o-mini",
+        "maxSectionChars": 12000
+      },
+      "properties": {
+        "parseSections": {
+          "title": "Parse key sections",
+          "type": "boolean",
+          "description": "Attempt to extract Risk Factors and Financial Statements sections from filing text.",
+          "default": true
+        },
+        "aiSummarize": {
+          "title": "AI summarize key changes",
+          "type": "boolean",
+          "description": "If true, uses OpenAI (requires openaiApiKey) to summarize changes for new filings and amendments. Falls back to heuristic summary if key missing.",
+          "default": true
+        },
+        "openaiApiKey": {
+          "title": "OpenAI API key (optional)",
+          "type": "string",
+          "description": "Optional. If provided and aiSummarize=true, generates an AI change summary. Store as an Actor input secret in Apify.",
+          "default": ""
+        },
+        "aiModel": {
+          "title": "OpenAI model",
+          "type": "string",
+          "description": "Model name for summaries. Keep this aligned with your OpenAI account.",
+          "default": "gpt-4o-mini"
+        },
+        "maxSectionChars": {
+          "title": "Max chars per extracted section",
+          "type": "integer",
+          "description": "Caps extracted text size to control costs and dataset bloat.",
+          "default": 12000,
+          "minimum": 1000,
+          "maximum": 50000
+        }
+      }
+    }
+  },
+  "required": [
+    "userAgent"
+  ]
+}

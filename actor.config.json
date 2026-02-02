@@ -1,0 +1,7 @@
+{
+  "build": "npm install",
+  "start": "npm start",
+  "nodeVersion": "18",
+  "memoryMbytes": 4096,
+  "timeoutSecs": 3600
+}

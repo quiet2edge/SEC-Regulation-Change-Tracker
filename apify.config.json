@@ -1,0 +1,14 @@
+{
+  "actorId": "",
+  "actorBuild": "latest",
+  "defaultRunOptions": {
+    "build": "latest",
+    "timeoutSecs": 3600,
+    "memoryMbytes": 2048
+  },
+  "recommendedScheduler": {
+    "hourly": "0 * * * *",
+    "daily": "0 9 * * *",
+    "weekly": "0 9 * * 1"
+  }
+}

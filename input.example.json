@@ -1,0 +1,46 @@
+{
+  "targets": {
+    "tickers": [
+      "AAPL",
+      "MSFT"
+    ],
+    "ciks": [
+      "0000320193"
+    ]
+  },
+  "forms": [
+    "10-K",
+    "10-Q",
+    "8-K",
+    "S-1",
+    "S-3",
+    "S-4",
+    "DEF 14A",
+    "SC 13D",
+    "SC 13G",
+    "ADV",
+    "D"
+  ],
+  "dateRange": {
+    "startDate": "",
+    "endDate": ""
+  },
+  "backfill": true,
+  "backfillDays": 30,
+  "outputFormats": [
+    "json",
+    "csv"
+  ],
+  "checkFrequency": "daily",
+  "userAgent": "YourName your.email@domain.com",
+  "maxCompanies": 200,
+  "maxFilingsPerCompany": 200,
+  "requestConcurrency": 4,
+  "enrich": {
+    "parseSections": true,
+    "aiSummarize": true,
+    "openaiApiKey": "",
+    "aiModel": "gpt-4o-mini",
+    "maxSectionChars": 12000
+  }
+}

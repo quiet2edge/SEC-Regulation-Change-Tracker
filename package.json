@@ -1,0 +1,20 @@
+{
+  "name": "sec-reg-change-agent",
+  "version": "1.0.0",
+  "description": "Apify Actor: monitors SEC EDGAR filings for changes and amendments, with optional AI change summaries.",
+  "type": "module",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js"
+  },
+  "dependencies": {
+    "apify": "^3.3.2",
+    "cheerio": "^1.0.0-rc.12",
+    "json2csv": "^6.0.0-alpha.2",
+    "p-limit": "^5.0.0",
+    "undici": "^6.19.8"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
