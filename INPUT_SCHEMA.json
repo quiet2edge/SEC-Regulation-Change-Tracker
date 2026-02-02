@@ -19,8 +19,7 @@
           "items": {
             "type": "string"
           },
-          "default": [],
-          "editor": "stringList"
+          "default": []
         },
         "ciks": {
           "title": "CIKs",
@@ -29,11 +28,9 @@
           "items": {
             "type": "string"
           },
-          "default": [],
-          "editor": "stringList"
+          "default": []
         }
-      },
-      "editor": "object"
+      }
     },
     "forms": {
       "title": "Forms",
@@ -54,8 +51,7 @@
         "SC 13G",
         "ADV",
         "D"
-      ],
-      "editor": "stringList"
+      ]
     },
     "dateRange": {
       "title": "Date range filter",
@@ -70,25 +66,21 @@
           "title": "Start date",
           "type": "string",
           "description": "Inclusive start date (YYYY-MM-DD). Leave empty for no start bound.",
-          "default": "",
-          "editor": "textfield"
+          "default": ""
         },
         "endDate": {
           "title": "End date",
           "type": "string",
           "description": "Inclusive end date (YYYY-MM-DD). Leave empty for no end bound.",
-          "default": "",
-          "editor": "textfield"
+          "default": ""
         }
-      },
-      "editor": "object"
+      }
     },
     "backfill": {
       "title": "Backfill historical data on first run",
       "type": "boolean",
       "description": "If true and there is no stored state yet, pull filings within the date range (or the last N days) to seed the dataset. If false, only track from deployment/run date forward.",
-      "default": false,
-      "editor": "checkbox"
+      "default": false
     },
     "backfillDays": {
       "title": "Backfill lookback days (when no dateRange is provided)",
@@ -96,8 +88,7 @@
       "description": "If backfill=true and dateRange is empty, pull filings from the last N days on first run.",
       "default": 30,
       "minimum": 1,
-      "maximum": 3650,
-      "editor": "number"
+      "maximum": 3650
     },
     "outputFormats": {
       "title": "Output formats",
@@ -113,8 +104,7 @@
       "default": [
         "json",
         "csv"
-      ],
-      "editor": "select"
+      ]
     },
     "checkFrequency": {
       "title": "Intended check frequency",
@@ -126,15 +116,13 @@
         "daily",
         "weekly"
       ],
-      "default": "daily",
-      "editor": "select"
+      "default": "daily"
     },
     "userAgent": {
       "title": "SEC User-Agent header",
       "type": "string",
       "description": "Required. SEC asks automated clients to identify themselves. Example: 'YourName your.email@domain.com'.",
-      "minLength": 8,
-      "editor": "textfield"
+      "minLength": 8
     },
     "maxCompanies": {
       "title": "Max companies per run",
@@ -142,8 +130,7 @@
       "description": "Safety limit to avoid huge runs.",
       "default": 200,
       "minimum": 1,
-      "maximum": 2000,
-      "editor": "number"
+      "maximum": 2000
     },
     "maxFilingsPerCompany": {
       "title": "Max filings to scan per company",
@@ -151,8 +138,7 @@
       "description": "Limit how many recent filings to evaluate per company.",
       "default": 200,
       "minimum": 10,
-      "maximum": 2000,
-      "editor": "number"
+      "maximum": 2000
     },
     "requestConcurrency": {
       "title": "HTTP concurrency",
@@ -160,8 +146,7 @@
       "description": "Parallelism for SEC requests (keep modest to be nice to EDGAR).",
       "default": 4,
       "minimum": 1,
-      "maximum": 10,
-      "editor": "number"
+      "maximum": 10
     },
     "enrich": {
       "title": "Enrichment options",
@@ -178,29 +163,25 @@
           "title": "Parse key sections",
           "type": "boolean",
           "description": "Attempt to extract Risk Factors and Financial Statements sections from filing text.",
-          "default": true,
-          "editor": "checkbox"
+          "default": true
         },
         "aiSummarize": {
           "title": "AI summarize key changes",
           "type": "boolean",
           "description": "If true, uses OpenAI (requires openaiApiKey) to summarize changes for new filings and amendments. Falls back to heuristic summary if key missing.",
-          "default": true,
-          "editor": "checkbox"
+          "default": true
         },
         "openaiApiKey": {
           "title": "OpenAI API key (optional)",
           "type": "string",
           "description": "Optional. If provided and aiSummarize=true, generates an AI change summary. Store as an Actor input secret in Apify.",
-          "default": "",
-          "editor": "textfield"
+          "default": ""
         },
         "aiModel": {
           "title": "OpenAI model",
           "type": "string",
           "description": "Model name for summaries. Keep this aligned with your OpenAI account.",
-          "default": "gpt-4o-mini",
-          "editor": "textfield"
+          "default": "gpt-4o-mini"
         },
         "maxSectionChars": {
           "title": "Max chars per extracted section",
@@ -208,11 +189,9 @@
           "description": "Caps extracted text size to control costs and dataset bloat.",
           "default": 12000,
           "minimum": 1000,
-          "maximum": 50000,
-          "editor": "number"
+          "maximum": 50000
         }
-      },
-      "editor": "object"
+      }
     }
   },
   "required": [
